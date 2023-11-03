@@ -57,7 +57,7 @@ ul, li {
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
   opacity: 0;
-/* }
+}
 .spinner--active {
   opacity: 1;
 }
@@ -71,4 +71,4 @@ ul, li {
   to {
     transform: rotate(360deg);
   }
-} */
+}
