@@ -33,4 +33,43 @@ module.exports = function render(url, res) {
   // );
 
   // The new wiring is a bit more involved.
-  
+  res.socket.on('error', error => {
+    console.error('Fatal', error);
+  });
+  let didError = false;
+  const {pipe, abort} = renderToPipeableStream(
+    <DataProvider data={data}>
+      <App assets={assets} />
+    </DataProvider>,
+    {
+      bootstrapScripts: [assets['main.js']],
+      onAllReady() {
+        // Full completion.
+        // You can use this for SSG or crawlers.
+      },
+      onShellReady() {
+        // If something errored before we started streaming, we set the error code appropriately.
+        res.statusCode = didError ? 500 : 200;
+        res.setHeader('Content-type', 'text/html');
+        pipe(res);
+      },
+      onShellError(x) {
+        // Something errored before we could complete the shell so we emit an alternative shell.
+        res.statusCode = 500;
+        res.send('<!doctype><p>Error</p>');
+      },
+      onError(x) {
+        didError = true;
+        console.error(x);
+      },
+    }
+  );
+  // Abandon and switch to client rendering if enough time passes.
+  // Try lowering this to see the client recover.
+  setTimeout(abort, ABORT_DELAY);
+};
+
+// Simulate a delay caused by data fetching.
+// We fake this because the streaming HTML renderer
+// is not yet integrated with real data fetching strategies.
+
