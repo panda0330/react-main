@@ -86,5 +86,10 @@ async function waitForWebpack() {
       readFileSync(path.resolve(__dirname, '../build/main.js'));
       return;
     } catch (err) {
-
+      console.log(
+        'Could not find webpack build output. Will retry in a second...'
+      );
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
 }
