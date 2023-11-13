@@ -80,5 +80,11 @@ function handleErrors(fn) {
   };
 }
 
+async function waitForWebpack() {
+  while (true) {
+    try {
+      readFileSync(path.resolve(__dirname, '../build/main.js'));
+      return;
+    } catch (err) {
 
 }
