@@ -82,5 +82,10 @@ function createServerData() {
       }
       if (promise) {
         throw promise;
+      }
+      promise = new Promise(resolve => {
+        setTimeout(() => {
+          done = true;
+          promise = null;
 
 }
