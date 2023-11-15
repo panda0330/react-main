@@ -28,18 +28,5 @@ module.exports = function autoImporter(babel) {
 
     visitor: {
       CallExpression: function (path, file) {
-        if (/shared(\/|\\)assign/.test(file.filename)) {
-          // Don't replace Object.assign if we're transforming shared/assign
-          return;
-        }
-        if (path.get('callee').matchesPattern('Object.assign')) {
-          // generate identifier and require if it hasn't been already
-          const id = getAssignIdent(path, file, this);
-          path.node.callee = id;
-        }
-      },
 
-
-    },
-  };
 };
