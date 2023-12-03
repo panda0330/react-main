@@ -39,5 +39,16 @@ module.exports = function autoImporter(babel) {
         }
       },
 
-
+      MemberExpression: function (path, file) {
+        if (/shared(\/|\\)assign/.test(file.filename)) {
+          // Don't replace Object.assign if we're transforming shared/assign
+          return;
+        }
+        if (path.matchesPattern('Object.assign')) {
+          const id = getAssignIdent(path, file, this);
+          path.replaceWith(id);
+        }
+      },
+    },
+  };
 };
