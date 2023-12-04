@@ -44,6 +44,29 @@ function transform(babel) {
       null
     );
 
+    if (resultingCondition === null) {
+      return null;
+    }
+
+    return t.stringLiteral(resultingCondition);
+  }
+
+  return {
+    name: 'transform-react-version-pragma',
+    visitor: {
+      ExpressionStatement(path) {
+        const statement = path.node;
+        const expression = statement.expression;
+        if (expression.type === 'CallExpression') {
+          const callee = expression.callee;
+          switch (callee.type) {
+            case 'Identifier': {
+              if (
+                callee.name === 'test' ||
+                callee.name === 'it' ||
+                callee.name === 'fit'
+              ) {
+                const comments = getComments(path);
 
 }
 
