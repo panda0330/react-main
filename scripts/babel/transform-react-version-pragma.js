@@ -80,6 +80,28 @@ function transform(babel) {
               }
               break;
             }
+            case 'MemberExpression': {
+              if (
+                callee.object.type === 'Identifier' &&
+                (callee.object.name === 'test' ||
+                  callee.object.name === 'it') &&
+                callee.property.type === 'Identifier' &&
+                callee.property.name === 'only'
+              ) {
+                const comments = getComments(path);
+                const condition = buildGateVersionCondition(comments);
+                if (condition !== null) {
+                  statement.expression = t.callExpression(
+                    t.identifier('_test_react_version_focus'),
+                    [condition, ...expression.arguments]
+                  );
+                } else if (REACT_VERSION_ENV) {
+                  statement.expression = t.callExpression(
+                    t.identifier('_test_ignore_for_react_version'),
+                    expression.arguments
+                  );
+                }
+              }
 
 }
 
