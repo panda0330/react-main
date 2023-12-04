@@ -67,6 +67,19 @@ function transform(babel) {
                 callee.name === 'fit'
               ) {
                 const comments = getComments(path);
+                const condition = buildGateVersionCondition(comments);
+                if (condition !== null) {
+                  callee.name =
+                    callee.name === 'fit'
+                      ? '_test_react_version_focus'
+                      : '_test_react_version';
+                  expression.arguments = [condition, ...expression.arguments];
+                } else if (REACT_VERSION_ENV) {
+                  callee.name = '_test_ignore_for_react_version';
+                }
+              }
+              break;
+            }
 
 }
 
