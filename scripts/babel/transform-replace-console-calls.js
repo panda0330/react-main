@@ -20,5 +20,23 @@ module.exports = function replaceConsoleCalls(babel) {
           'shared/consoleWithStackDev',
           {nameHint: 'consoleError'}
         )
+      );
+    }
+    return babel.types.cloneDeep(consoleErrors.get(file));
+  }
+
+  let consoleWarns = new WeakMap();
+  function getConsoleWarn(path, file) {
+    if (!consoleWarns.has(file)) {
+      consoleWarns.set(
+        file,
+        helperModuleImports.addNamed(
+          path,
+          'warn',
+          'shared/consoleWithStackDev',
+          {nameHint: 'consoleWarn'}
+        )
+      );
+    }
 
 };
