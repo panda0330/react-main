@@ -38,5 +38,33 @@ module.exports = function replaceConsoleCalls(babel) {
         )
       );
     }
+    return babel.types.cloneDeep(consoleWarns.get(file));
+  }
+
+  return {
+    visitor: {
+      CallExpression: function (path, pass) {
+        if (path.node.callee.type !== 'MemberExpression') {
+          return;
+        }
+        if (path.node.callee.property.type !== 'Identifier') {
+          // Don't process calls like console['error'](...)
+          // because they serve as an escape hatch.
+          return;
+        }
+        if (path.get('callee').matchesPattern('console.error')) {
+          if (this.opts.shouldError) {
+            throw path.buildCodeFrameError(
+              "This module has no access to the React object, so it can't " +
+                'use console.error() with automatically appended stack. ' +
+                "As a workaround, you can use console['error'] which won't " +
+                'be transformed.'
+            );
+          }
+          const id = getConsoleError(path, pass.file);
+          path.node.callee = id;
+        }
+        if (path.get('callee').matchesPattern('console.warn')) {
+          if (this.opts.shouldError) {
 
 };
