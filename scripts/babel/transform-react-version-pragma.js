@@ -102,7 +102,14 @@ function transform(babel) {
                   );
                 }
               }
-
+              break;
+            }
+          }
+        }
+        return;
+      },
+    },
+  };
 }
 
 module.exports = transform;
