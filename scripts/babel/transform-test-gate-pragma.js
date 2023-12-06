@@ -37,6 +37,16 @@ function transform(babel) {
           if (i > code.length) {
             throw Error('Missing a closing quote');
           }
+          char = code[i++];
+          if (char === '"') {
+            break;
+          }
+          string += char;
+        } while (true);
+        tokens.push({type: 'string', value: string});
+        continue;
+      }
+
 
 }
 
