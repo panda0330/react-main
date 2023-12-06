@@ -74,5 +74,9 @@ module.exports = function replaceConsoleCalls(babel) {
             );
           }
           const id = getConsoleWarn(path, pass.file);
-
+          path.node.callee = id;
+        }
+      },
+    },
+  };
 };
