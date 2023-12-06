@@ -66,5 +66,13 @@ module.exports = function replaceConsoleCalls(babel) {
         }
         if (path.get('callee').matchesPattern('console.warn')) {
           if (this.opts.shouldError) {
+            throw path.buildCodeFrameError(
+              "This module has no access to the React object, so it can't " +
+                'use console.warn() with automatically appended stack. ' +
+                "As a workaround, you can use console['warn'] which won't " +
+                'be transformed.'
+            );
+          }
+          const id = getConsoleWarn(path, pass.file);
 
 };
