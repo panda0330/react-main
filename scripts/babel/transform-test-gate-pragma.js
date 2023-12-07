@@ -65,6 +65,26 @@ function transform(babel) {
         continue;
       }
 
+      // Whitespace
+      if (/\s/.test(char)) {
+        if (char === '\n') {
+          return tokens;
+        }
+        i++;
+        continue;
+      }
+
+      const next3 = code.slice(i, i + 3);
+      if (next3 === '===') {
+        tokens.push({type: '=='});
+        i += 3;
+        continue;
+      }
+      if (next3 === '!==') {
+        tokens.push({type: '!='});
+        i += 3;
+        continue;
+      }
 
 }
 
