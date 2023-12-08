@@ -86,6 +86,23 @@ function transform(babel) {
         continue;
       }
 
+      const next2 = code.slice(i, i + 2);
+      switch (next2) {
+        case '&&':
+        case '||':
+        case '==':
+        case '!=':
+          tokens.push({type: next2});
+          i += 2;
+          continue;
+        case '//':
+          // This is the beginning of a line comment. The rest of the line
+          // is ignored.
+          return tokens;
+      }
+
+      switch (char) {
+
 }
 
 module.exports = transform;
