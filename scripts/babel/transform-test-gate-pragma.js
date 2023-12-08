@@ -102,6 +102,26 @@ function transform(babel) {
       }
 
       switch (char) {
+        case '(':
+        case ')':
+        case '!':
+          tokens.push({type: char});
+          i++;
+          continue;
+      }
+
+      // Names
+      const nameRegex = /[a-zA-Z_$][0-9a-zA-Z_$]*/y;
+      nameRegex.lastIndex = i;
+      const match = nameRegex.exec(code);
+      if (match !== null) {
+        const name = match[0];
+        switch (name) {
+          case 'true': {
+            tokens.push({type: 'boolean', value: true});
+            break;
+          }
+          case 'false': {
 
 }
 
