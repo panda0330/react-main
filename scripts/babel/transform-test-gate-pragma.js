@@ -138,6 +138,28 @@ function transform(babel) {
     return tokens;
   }
 
+  function parse(code, ctxIdentifier) {
+    const tokens = tokenize(code);
+
+    let i = 0;
+    function parseExpression() {
+      let left = parseBinary();
+      while (true) {
+        const token = tokens[i];
+        if (token !== undefined) {
+          switch (token.type) {
+            case '||':
+            case '&&': {
+              i++;
+              const right = parseBinary();
+              if (right === null) {
+                throw Error('Missing expression after ' + token.type);
+              }
+              left = t.logicalExpression(token.type, left, right);
+              continue;
+            }
+          }
+        }
 
 }
 
