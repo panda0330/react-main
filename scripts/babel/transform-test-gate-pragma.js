@@ -122,6 +122,22 @@ function transform(babel) {
             break;
           }
           case 'false': {
+            tokens.push({type: 'boolean', value: false});
+            break;
+          }
+          default: {
+            tokens.push({type: 'name', name});
+          }
+        }
+        i += name.length;
+        continue;
+      }
+
+      throw Error('Invalid character: ' + char);
+    }
+    return tokens;
+  }
+
 
 }
 
