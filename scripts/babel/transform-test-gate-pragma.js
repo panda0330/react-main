@@ -160,6 +160,22 @@ function transform(babel) {
             }
           }
         }
+        break;
+      }
+      return left;
+    }
+
+    function parseBinary() {
+      let left = parseUnary();
+      while (true) {
+        const token = tokens[i];
+        if (token !== undefined) {
+          switch (token.type) {
+            case '==':
+            case '!=': {
+              i++;
+              const right = parseUnary();
+              if (right === null) {
 
 }
 
