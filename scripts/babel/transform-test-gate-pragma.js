@@ -201,6 +201,22 @@ function transform(babel) {
     }
 
     function parsePrimary() {
+      const token = tokens[i];
+      switch (token.type) {
+        case 'boolean': {
+          i++;
+          return t.booleanLiteral(token.value);
+        }
+        case 'name': {
+          i++;
+          return t.memberExpression(ctxIdentifier, t.identifier(token.name));
+        }
+        case 'string': {
+          i++;
+          return t.stringLiteral(token.value);
+        }
+        case '(': {
+          i++;
 
 }
 
