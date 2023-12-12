@@ -176,6 +176,31 @@ function transform(babel) {
               i++;
               const right = parseUnary();
               if (right === null) {
+                throw Error('Missing expression after ' + token.type);
+              }
+              left = t.binaryExpression(token.type, left, right);
+              continue;
+            }
+          }
+        }
+        break;
+      }
+      return left;
+    }
+
+    function parseUnary() {
+      const token = tokens[i];
+      if (token !== undefined) {
+        if (token.type === '!') {
+          i++;
+          const argument = parseUnary();
+          return t.unaryExpression('!', argument);
+        }
+      }
+      return parsePrimary();
+    }
+
+    function parsePrimary() {
 
 }
 
