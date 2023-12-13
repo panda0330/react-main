@@ -232,6 +232,22 @@ function transform(babel) {
     }
 
     const program = parseExpression();
+    if (tokens[i] !== undefined) {
+      throw Error('Unexpected token');
+    }
+    return program;
+  }
+
+  function buildGateCondition(comments) {
+    let conditions = null;
+    for (const line of comments) {
+      const commentStr = line.value.trim();
+      if (commentStr.startsWith('@gate ')) {
+        const code = commentStr.slice(6);
+        const ctxIdentifier = t.identifier('ctx');
+        const condition = parse(code, ctxIdentifier);
+        if (conditions === null) {
+          conditions = [condition];
 
 }
 
