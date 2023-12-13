@@ -217,6 +217,21 @@ function transform(babel) {
         }
         case '(': {
           i++;
+          const expression = parseExpression();
+          const closingParen = tokens[i];
+          if (closingParen === undefined || closingParen.type !== ')') {
+            throw Error('Expected closing )');
+          }
+          i++;
+          return expression;
+        }
+        default: {
+          throw Error('Unexpected token: ' + token.type);
+        }
+      }
+    }
+
+    const program = parseExpression();
 
 }
 
