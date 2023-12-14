@@ -298,6 +298,36 @@ function transform(babel) {
               }
               break;
             }
+            case 'MemberExpression': {
+              if (
+                callee.object.type === 'Identifier' &&
+                (callee.object.name === 'test' ||
+                  callee.object.name === 'it') &&
+                callee.property.type === 'Identifier' &&
+                callee.property.name === 'only'
+              ) {
+                const comments = getComments(path);
+                if (comments !== undefined) {
+                  const condition = buildGateCondition(comments);
+                  if (condition !== null) {
+                    statement.expression = t.callExpression(
+                      t.identifier('_test_gate_focus'),
+                      [
+                        t.arrowFunctionExpression(
+                          [t.identifier('ctx')],
+                          condition
+                        ),
+                        ...expression.arguments,
+                      ]
+                    );
+                  }
+                }
+              }
+              break;
+            }
+          }
+        }
+        return;
 
 }
 
