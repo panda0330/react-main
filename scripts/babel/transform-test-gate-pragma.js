@@ -281,6 +281,23 @@ function transform(babel) {
                 callee.name === 'fit'
               ) {
                 const comments = getComments(path);
+                if (comments !== undefined) {
+                  const condition = buildGateCondition(comments);
+                  if (condition !== null) {
+                    callee.name =
+                      callee.name === 'fit' ? '_test_gate_focus' : '_test_gate';
+                    expression.arguments = [
+                      t.arrowFunctionExpression(
+                        [t.identifier('ctx')],
+                        condition
+                      ),
+                      ...expression.arguments,
+                    ];
+                  }
+                }
+              }
+              break;
+            }
 
 }
 
