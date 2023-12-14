@@ -248,6 +248,23 @@ function transform(babel) {
         const condition = parse(code, ctxIdentifier);
         if (conditions === null) {
           conditions = [condition];
+        } else {
+          conditions.push(condition);
+        }
+      }
+    }
+    if (conditions !== null) {
+      let condition = conditions[0];
+      for (let i = 1; i < conditions.length; i++) {
+        const right = conditions[i];
+        condition = t.logicalExpression('&&', condition, right);
+      }
+      return condition;
+    } else {
+      return null;
+    }
+  }
+
 
 }
 
