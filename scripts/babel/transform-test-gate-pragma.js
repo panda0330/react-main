@@ -265,6 +265,22 @@ function transform(babel) {
     }
   }
 
+  return {
+    name: 'test-gate-pragma',
+    visitor: {
+      ExpressionStatement(path) {
+        const statement = path.node;
+        const expression = statement.expression;
+        if (expression.type === 'CallExpression') {
+          const callee = expression.callee;
+          switch (callee.type) {
+            case 'Identifier': {
+              if (
+                callee.name === 'test' ||
+                callee.name === 'it' ||
+                callee.name === 'fit'
+              ) {
+                const comments = getComments(path);
 
 }
 
