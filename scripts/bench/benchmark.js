@@ -25,6 +25,21 @@ async function runScenario(benchmark, chrome) {
     config
   );
 
+  const perfMarkings = results.lhr.audits['user-timings'].details.items;
+  const entries = perfMarkings
+    .filter(({timingType}) => timingType !== 'Mark')
+    .map(({duration, name}) => ({
+      entry: name,
+      time: duration,
+    }));
+  entries.push({
+    entry: 'First Meaningful Paint',
+    time: results.lhr.audits['first-meaningful-paint'].rawValue,
+  });
+
+  return entries;
+}
+
 
 }
 
