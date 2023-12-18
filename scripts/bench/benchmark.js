@@ -40,6 +40,27 @@ async function runScenario(benchmark, chrome) {
   return entries;
 }
 
+function bootstrap(data) {
+  const len = data.length;
+  const arr = Array(len);
+  for (let j = 0; j < len; j++) {
+    arr[j] = data[(Math.random() * len) | 0];
+  }
+  return arr;
+}
+
+function calculateStandardErrorOfMean(data) {
+  const means = [];
+  for (let i = 0; i < 10000; i++) {
+    means.push(stats.mean(bootstrap(data)));
+  }
+  return stats.stdev(means);
+}
+
+function calculateAverages(runs) {
+  const data = [];
+  const averages = [];
+
 
 }
 
