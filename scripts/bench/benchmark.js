@@ -76,6 +76,28 @@ function calculateAverages(runs) {
           const dataWithoutOutliers = stats.filterMADoutliers(data[i]);
           averages[i].mean = stats.mean(dataWithoutOutliers);
           averages[i].sem = calculateStandardErrorOfMean(data[i]);
+        }
+      }
+    });
+  });
+
+  return averages;
+}
+
+async function initChrome() {
+  const platform = os.platform();
+
+  if (platform === 'linux') {
+    process.env.XVFBARGS = '-screen 0, 1024x768x16';
+    process.env.LIGHTHOUSE_CHROMIUM_PATH = 'chromium-browser';
+    const child = spawn('xvfb start', [{detached: true, stdio: ['ignore']}]);
+    child.unref();
+    // wait for chrome to load then continue
+    await wait(3000);
+    return child;
+  }
+}
+
 
 }
 
