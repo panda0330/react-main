@@ -20,3 +20,40 @@
       .split('/')[0];
   }
 
+  function HeaderBar() {
+    return e(
+      'tr',
+      {
+        style: {
+          backgroundColor: '#222',
+        },
+      },
+      e(
+        'table',
+        {
+          style: {
+            padding: 4,
+          },
+          width: '100%',
+          cellSpacing: 0,
+          cellPadding: 0,
+        },
+        e(
+          'tbody',
+          null,
+          e(
+            'tr',
+            null,
+            e(
+              'td',
+              {
+                style: {
+                  width: 18,
+                  paddingRight: 4,
+                },
+              },
+              e(
+                'a',
+                {
+                  href: '#',
+                },
