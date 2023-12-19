@@ -123,7 +123,8 @@ async function runBenchmark(benchmark, headless) {
     } catch (e) {}
   }
 
-
+  results.averages = calculateAverages(results.runs);
+  return results;
 }
 
 module.exports = runBenchmark;
