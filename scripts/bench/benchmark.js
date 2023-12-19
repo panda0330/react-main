@@ -98,6 +98,31 @@ async function initChrome() {
   }
 }
 
+async function launchChrome(headless) {
+  return await chromeLauncher.launch({
+    chromeFlags: [headless ? '--headless' : ''],
+  });
+}
+
+async function runBenchmark(benchmark, headless) {
+  const results = {
+    runs: [],
+    averages: [],
+  };
+
+  await initChrome();
+
+  for (let i = 0; i < timesToRun; i++) {
+    let chrome = await launchChrome(headless);
+
+    results.runs.push(await runScenario(benchmark, chrome));
+    // add a delay or sometimes it confuses lighthouse and it hangs
+    await wait(500);
+    try {
+      await chrome.kill();
+    } catch (e) {}
+  }
+
 
 }
 
