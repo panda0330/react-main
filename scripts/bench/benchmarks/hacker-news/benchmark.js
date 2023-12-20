@@ -100,3 +100,45 @@
     );
   }
 
+  function Story({story, rank}) {
+    return [
+      e(
+        'tr',
+        {
+          className: 'athing',
+        },
+        e(
+          'td',
+          {
+            style: {
+              verticalAlign: 'top',
+              textAlign: 'right',
+            },
+            className: 'title',
+          },
+          e(
+            'span',
+            {
+              className: 'rank',
+            },
+            `${rank}.`
+          )
+        ),
+        e(
+          'td',
+          {
+            className: 'votelinks',
+            style: {
+              verticalAlign: 'top',
+            },
+          },
+          e(
+            'center',
+            null,
+            e(
+              'a',
+              {
+                href: '#',
+              },
+              e('div', {
+                className: 'votearrow',
