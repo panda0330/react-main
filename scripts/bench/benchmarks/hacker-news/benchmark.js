@@ -78,3 +78,25 @@
               e(
                 'span',
                 {
+                  className: 'pagetop',
+                },
+                e('b', {className: 'hnname'}, 'React HN Benchmark'),
+                e('a', {href: '#'}, 'new'),
+                ' | ',
+                e('a', {href: '#'}, 'comments'),
+                ' | ',
+                e('a', {href: '#'}, 'show'),
+                ' | ',
+                e('a', {href: '#'}, 'ask'),
+                ' | ',
+                e('a', {href: '#'}, 'jobs'),
+                ' | ',
+                e('a', {href: '#'}, 'submit')
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+
