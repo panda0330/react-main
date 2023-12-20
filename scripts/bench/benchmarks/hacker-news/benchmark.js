@@ -142,3 +142,40 @@
               },
               e('div', {
                 className: 'votearrow',
+                title: 'upvote',
+              })
+            )
+          )
+        ),
+        e(
+          'td',
+          {
+            className: 'title',
+          },
+          e(
+            'a',
+            {
+              href: '#',
+              className: 'storylink',
+            },
+            story.title
+          ),
+          story.url
+            ? e(
+                'span',
+                {
+                  className: 'sitebit comhead',
+                },
+                ' (',
+                e(
+                  'a',
+                  {
+                    href: '#',
+                  },
+                  getHostUrl(story.url)
+                ),
+                ')'
+              )
+            : null
+        )
+      ),
