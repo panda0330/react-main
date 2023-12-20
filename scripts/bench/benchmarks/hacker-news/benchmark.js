@@ -57,3 +57,24 @@
                 {
                   href: '#',
                 },
+                e('img', {
+                  src: 'logo.png',
+                  width: 16,
+                  height: 16,
+                  style: {
+                    border: '1px solid #00d8ff',
+                  },
+                })
+              )
+            ),
+            e(
+              'td',
+              {
+                style: {
+                  lineHeight: '12pt',
+                },
+                height: 10,
+              },
+              e(
+                'span',
+                {
