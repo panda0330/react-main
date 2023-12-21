@@ -179,3 +179,45 @@
             : null
         )
       ),
+      e(
+        'tr',
+        null,
+        e('td', {
+          colSpan: 2,
+        }),
+        e(
+          'td',
+          {
+            className: 'subtext',
+          },
+          e(
+            'span',
+            {
+              className: 'score',
+            },
+            `${story.score} points`
+          ),
+          ' by ',
+          e(
+            'a',
+            {
+              href: '#',
+              className: 'hnuser',
+            },
+            story.by
+          ),
+          ' ',
+          e(
+            'span',
+            {
+              className: 'age',
+            },
+            e(
+              'a',
+              {
+                href: '#',
+              },
+              timeAge(story.time)
+            )
+          ),
+          ' | ',
