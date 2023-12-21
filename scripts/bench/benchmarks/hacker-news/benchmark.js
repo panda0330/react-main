@@ -221,3 +221,55 @@
             )
           ),
           ' | ',
+          e(
+            'a',
+            {
+              href: '#',
+            },
+            'hide'
+          ),
+          ' | ',
+          e(
+            'a',
+            {
+              href: '#',
+            },
+            `${story.descendants || 0} comments`
+          )
+        )
+      ),
+      e('tr', {
+        style: {
+          height: 5,
+        },
+        className: 'spacer',
+      }),
+    ];
+  }
+
+  function StoryList({stories}) {
+    return e(
+      'tr',
+      null,
+      e(
+        'td',
+        null,
+        e(
+          'table',
+          {
+            cellPadding: 0,
+            cellSpacing: 0,
+            classList: 'itemlist',
+          },
+          e(
+            'tbody',
+            null,
+            stories.map((story, i) =>
+              e(Story, {story, rank: ++i, key: story.id})
+            )
+          )
+        )
+      )
+    );
+  }
+
