@@ -78,5 +78,31 @@ window.stories = [
     type: 'story',
     url: 'https://priceonomics.com/is-every-speed-limit-too-low/',
   },
+  {
+    by: 'monort',
+    descendants: 63,
+    id: 14196322,
+    kids: [
+      14197628, 14200026, 14197457, 14197486, 14202126, 14201266, 14197227,
+      14199404, 14199338, 14196382, 14200598, 14197377, 14199689, 14198538,
+      14196905, 14200404, 14198781, 14197278, 14197888, 14197742, 14197764,
+    ],
+    score: 316,
+    time: 1493143464,
+    title: 'Experimental Nighttime Photography with Nexus and Pixel',
+    type: 'story',
+    url: 'https://research.googleblog.com/2017/04/experimental-nighttime-photography-with.html',
+  },
+  {
+    by: 'networked',
+    descendants: 9,
+    id: 14199028,
+    kids: [14201588, 14200361, 14200314, 14200338],
+    score: 121,
+    time: 1493161601,
+    title: 'JPEG Huffman Coding Tutorial',
+    type: 'story',
+    url: 'https://www.impulseadventure.com/photo/jpeg-huffman-coding.html',
+  },
 
 ];
